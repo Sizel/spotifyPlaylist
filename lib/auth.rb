@@ -8,8 +8,6 @@ class Auth
   CLIENT_SECRET = '093442b2cf414d04ba2d44d2b2980796'
   REDIRECT_URI = 'https://developer.spotify.com'
 
-  attr_reader :actual_token, :refresh_token
-
   def initialize(scope, username, pwd)
     @scope = scope
     @username = username
@@ -28,13 +26,19 @@ class Auth
     code_start_index = url_after_redirect.index('=') + 1
     # Get the code from the URL and return it
     url_after_redirect[code_start_index..-1]
+
   end
 
-  def get_tokens(code)
-    response_json = RestClient.post('https://accounts.spotify.com/api/token',
-                             { code: code, grant_type: 'authorization_code', redirect_uri: REDIRECT_URI },
-                             { content_type: 'application/x-www-form-urlencoded',
-                               authorization: 'Basic ' + Base64.strict_encode64(CLIENT_ID + ':' + CLIENT_SECRET)})
+  def get_token(code)
+    begin
+      response_json = RestClient.post('https://accounts.spotify.com/api/token',
+                                      { code: code, grant_type: 'authorization_code', redirect_uri: REDIRECT_URI },
+                                      { content_type: 'application/x-www-form-urlencoded',
+                                        authorization: 'Basic ' + Base64.strict_encode64(CLIENT_ID + ':' + CLIENT_SECRET)})
+    rescue RestClient::Exception => e
+      puts e.response
+    end
+
     response = JSON.parse(response_json)
     response['access_token']
   end
