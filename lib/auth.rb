@@ -6,27 +6,36 @@ require 'json'
 class Auth
   CLIENT_ID = 'b174e95d76534e5a85a6055f76371c3e'
   CLIENT_SECRET = '093442b2cf414d04ba2d44d2b2980796'
+  SCOPE = 'playlist-modify-private playlist-read-private user-read-private user-read-email'
   REDIRECT_URI = 'https://developer.spotify.com'
 
-  def initialize(scope, username, pwd)
-    @scope = scope
+  def initialize(username, pwd)
     @username = username
     @pwd = pwd
   end
 
   def authorize
-    browser = Watir::Browser.new :firefox
-    url = build_url
-    browser.goto url
-    browser.input(id: 'login-username').send_keys(@username)
-    browser.input(id: 'login-password').send_keys(@pwd)
-    browser.button(id: 'login-button').click
-    browser.wait_until { |b| b.title == 'Home | Spotify for Developers' }
-    url_after_redirect = browser.url
+    url_after_redirect = login
     code_start_index = url_after_redirect.index('=') + 1
     # Get the code from the URL and return it
-    url_after_redirect[code_start_index..-1]
+    code = url_after_redirect[code_start_index..-1]
+    get_token(code)
+  end
 
+  private
+
+  def login
+    browser = Watir::Browser.new :firefox
+    browser.goto auth_url
+    browser.input(id: 'login-username').set(@username)
+    browser.input(id: 'login-password').set(@pwd)
+    browser.button(id: 'login-button').click
+    sleep(2)
+    if (browser.title == 'Authorize - Spotify')
+      browser.button(id: 'auth-accept').click
+    end
+    browser.wait_until { |b| b.title == 'Home | Spotify for Developers' }
+    browser.url
   end
 
   def get_token(code)
@@ -43,11 +52,9 @@ class Auth
     response['access_token']
   end
 
-  private
-
-  def build_url
+  def auth_url
     endpoint = 'https://accounts.spotify.com/authorize'
-    querystring = "?client_id=#{CLIENT_ID}&response_type=code&redirect_uri=#{REDIRECT_URI}&scope=#{@scope}"
+    querystring = "?client_id=#{CLIENT_ID}&response_type=code&redirect_uri=#{REDIRECT_URI}&scope=#{SCOPE}"
     endpoint + querystring
   end
 end
