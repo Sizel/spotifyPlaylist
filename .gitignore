@@ -1,3 +1,15 @@
+/.bundle/
+/.yardoc
+/_yardoc/
+/coverage/
+/doc/
+/pkg/
+/spec/reports/
+/tmp/
+
+# rspec failure tracking
+.rspec_status
+
 # Default ignored files
 /shelf/
 /workspace.xml
@@ -6,3 +18,4 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+credentials.txt
