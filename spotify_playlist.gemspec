@@ -9,7 +9,6 @@ Gem::Specification.new do |spec|
   spec.email         = ["xsizelx@gmail.com"]
 
   spec.summary       = "App that connects to your Spotify account, creates a playlist and makes some changes to it"
-  spec.required_ruby_version = ">= 2.7.0"
 
   spec.metadata["allowed_push_host"] = "rubygems.org"
 
