@@ -1,9 +1,11 @@
 # SpotifyPlaylist
 
 ## Usage
+Before running the script make sure you have firefox installed and geckodriver placed in one of the folders in $PATH.  
+You can download the latest version of geckodriver from: https://github.com/mozilla/geckodriver/releases  
 
 SpotifyPlaylist takes your credentials from lib/credentials.txt.
-Put your username and password there in the format of:  
+Put your username and password there separated by a new line:  
 username  
 password
 
