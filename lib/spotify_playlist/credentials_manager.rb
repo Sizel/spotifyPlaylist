@@ -8,11 +8,9 @@ module SpotifyPlaylist
           username = f.readline.strip
           pwd = f.readline.strip
         end
-      rescue SystemCallError => e
-        puts e.message
-        exit
+      rescue SystemCallError
+        raise 'Can\'t find or open credentials.txt using this path'
       end
-  
       [username, pwd]
     end
   end

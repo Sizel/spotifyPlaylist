@@ -1,6 +1,7 @@
 /.bundle/
 /.yardoc
 /_yardoc/
+/.vscode/
 /coverage/
 /doc/
 /pkg/
@@ -19,3 +20,5 @@
 /dataSources/
 /dataSources.local.xml
 credentials.txt
+Gemfile.lock
+.vscode

@@ -12,11 +12,20 @@ require 'spotify_playlist/repository'
 module SpotifyPlaylist
   class Error < StandardError; end
 
-  def run
-    username, pwd = CredentialsManager.get_credentials("#{__dir__}/credentials.txt")
+  def self.run
+    begin
+      username, pwd = CredentialsManager.get_credentials("#{__dir__}/spotify_playlist/credentials.txt")
+    rescue SystemCallError => e
+      puts e.message
+      exit
+    end
     auth = Auth.new(username, pwd)
-    access_token = auth.authorize
-
+    begin
+      access_token = auth.authorize
+    rescue RuntimeError => e
+      puts e.message
+      exit
+    end
     repo = Repository.new(access_token)
     user_id = repo.user_id
     playlist = repo.create_playlist(user_id)
