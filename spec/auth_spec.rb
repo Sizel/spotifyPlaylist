@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../lib/spotify_playlist/auth'
 
 RSpec.describe Auth do

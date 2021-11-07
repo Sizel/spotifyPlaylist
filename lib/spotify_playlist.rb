@@ -1,5 +1,8 @@
 # frozen_string_literal: true
+
+require 'watir'
 require 'rest-client'
+require 'json'
 require_relative 'spotify_playlist/version'
 require_relative 'spotify_playlist/auth'
 require_relative 'spotify_playlist/playlist'

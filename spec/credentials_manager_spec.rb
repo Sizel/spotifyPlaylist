@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../lib/spotify_playlist/credentials_manager'
 
 RSpec.describe CredentialsManager do

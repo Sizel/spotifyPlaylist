@@ -1,6 +1,4 @@
-require 'watir'
-require 'rest-client'
-require 'json'
+# frozen_string_literal: true
 
 # Class that does all the authentication steps
 class Auth

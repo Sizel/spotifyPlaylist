@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Class that contains all the calls to Spotify API
 class Repository
   def initialize(access_token)
     @token = access_token

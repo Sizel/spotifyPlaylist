@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CredentialsManager
   def self.get_credentials(filepath)
     username = ''

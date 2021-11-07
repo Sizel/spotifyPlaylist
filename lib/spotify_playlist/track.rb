@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Track
   attr_accessor :id, :name, :artist_name, :album_name, :spotify_url
 

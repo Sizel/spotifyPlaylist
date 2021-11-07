@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Playlist
   attr_accessor :id, :name, :description, :owner_name, :spotify_url, :tracks
 
