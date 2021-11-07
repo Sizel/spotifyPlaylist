@@ -1,9 +1,16 @@
 require_relative '../lib/spotify_playlist/credentials_manager'
 
-RSpec.describe SpotifyPlaylist::CredentialsManager do
-  context 'no file given' do
-    it 'outputs to the console that there is no credentials.txt file' do
-      expect { subject.get_credentials('/home/sizel') }.to raise_exception('Can\'t find or open credentials.txt using this path')
+RSpec.describe CredentialsManager do
+  before(:all) do
+    File.rename('lib/credentials.txt', 'lib/x.txt') if File.file?('lib/credentials.txt')
+  end
+
+  after(:all) do
+    File.rename('lib/x.txt', 'lib/credentials.txt') if File.file?('lib/x.txt')
+  end
+  context 'given no credentials.txt in /lib directory' do
+    it 'raises SystemCallError exception' do
+      expect { CredentialsManager.get_credentials('lib/credentials.txt') }.to raise_error SystemCallError
     end
   end
 end
