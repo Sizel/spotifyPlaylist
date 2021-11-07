@@ -1,3 +1,5 @@
+require_relative 'track'
+
 class Parser
   def self.get_tracks(playlist_json)
     playlist_json['tracks']['items'].map do |track|
