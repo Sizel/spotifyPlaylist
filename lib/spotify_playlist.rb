@@ -6,6 +6,7 @@ require_relative 'spotify_playlist/playlist'
 require_relative 'spotify_playlist/track'
 require_relative 'spotify_playlist/credentials_manager'
 require_relative 'spotify_playlist/repository'
+require_relative 'spotify_playlist/parser'
 
 begin
   username, pwd = CredentialsManager.get_credentials("#{__dir__}/spotify_playlist/credentials.txt")
@@ -33,13 +34,7 @@ repo.put_first_track_to_end(playlist['id'])
 repo.delete_last_track(playlist['id'])
 playlist_from_spotify = repo.get_playlist(playlist['id'])
 
-tracks_to_add = playlist_from_spotify['tracks']['items'].map do |track|
-  track = track['track']
-  artists = track['artists'].map do |artist|
-    artist['name']
-  end
-  Track.new(track['id'], track['name'], artists.join(','), track['album']['name'], track['href'])
-end
+tracks_to_add = Parser.get_tracks(playlist_from_spotify)
 
 playlist_obj = Playlist.new(
   playlist_from_spotify['id'],
