@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'watir'
 
 # Class that does all the authentication steps
 class Auth
@@ -71,6 +72,6 @@ class Auth
 
   def get_code_from_url(url)
     code_start_index = url.index('=') + 1
-    url[code_start_index..]
+    url[code_start_index..-1]
   end
 end
