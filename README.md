@@ -9,6 +9,12 @@ Put your username and password there separated by a new line:
 username  
 password
 
+## How to run tests
+Go to the root directory and run rspec:
+```
+max@max-LIFEBOOK-E756:~/RubymineProjects/SpotifyPlaylist/spotify_playlist$ rspec
+```
+
 ## How to run the script
 To run the script go to the project's root directory and do: ruby lib/spotify_playlist.rb  
 max@max-LIFEBOOK-E756:~/RubymineProjects/SpotifyPlaylist/spotify_playlist$ ruby lib/spotify_playlist
